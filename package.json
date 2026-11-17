@@ -1,0 +1,28 @@
+{
+  "name": "reizo-village-portfolio",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Reizo's Village Interactive Pixel-Art Portfolio - Svelte 5 Edition",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite"
+  },
+  "keywords": [
+    "portfolio",
+    "pixel-art",
+    "interactive",
+    "game-portfolio",
+    "canvas",
+    "svelte"
+  ],
+  "author": "Reizo Rajendra",
+  "license": "MIT",
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "pngjs": "^7.0.0",
+    "svelte": "^5.57.3",
+    "vite": "^8.3.8"
+  }
+}
