@@ -86,7 +86,7 @@ export const ABOUT_ME: AboutMe = {
       year: "GRADUATED 2024",
       degree: "Junior High School Diploma",
       institution: "SMPN 20 Semarang",
-      status: "Alumni · Class of 2024",
+      status: "Consistently Ranked Top 3 Academic Student",
       details:
         "Ketua Seksi Kewirausahaan OSIS & Anggota Paskibra. Actively led student business initiatives and ceremonial flag-raising leadership.",
     },
