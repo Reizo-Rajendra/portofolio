@@ -14,12 +14,33 @@
   }
 </script>
 
-<span class="eyebrow">{ABOUT_ME.eyebrow}</span>
-<h2 id="panel-title">
-  {ABOUT_ME.title}<br />
-  {ABOUT_ME.titleSub}
-</h2>
-<p class="lead">{ABOUT_ME.lead}</p>
+<div class="about-hero">
+  <div class="about-hero-text">
+    <span class="eyebrow">{ABOUT_ME.eyebrow}</span>
+    <h2 id="panel-title">
+      {ABOUT_ME.title}<br />
+      {ABOUT_ME.titleSub}
+    </h2>
+    <p class="lead">{ABOUT_ME.lead}</p>
+  </div>
+
+  <div class="about-hero-photo">
+    <div class="developer-photo-card">
+      <img
+        src="/assets/profile/reizo-avatar.webp"
+        alt="Reizo Rajendra"
+        class="developer-photo-img"
+        width="135"
+        height="135"
+        loading="eager"
+      />
+      <div class="developer-photo-caption">
+        <span class="status-pulse-dot" aria-hidden="true"></span>
+        <span>Reizo Rajendra</span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="about-note">
   <span aria-hidden="true">✦</span>

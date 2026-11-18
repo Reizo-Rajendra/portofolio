@@ -519,3 +519,78 @@ dialog#panel,
   width: 100%;
   max-width: 500px;
 }
+
+/* Developer Profile Photo Card in About Me */
+.about-hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+.about-hero-text {
+  flex: 1;
+  min-width: 0;
+}
+.about-hero-photo {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.developer-photo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fffdf7;
+  border: 1.5px solid #d1be9b;
+  border-radius: 8px;
+  padding: 8px 8px 10px 8px;
+  box-shadow: 0 4px #c2ae8b, 0 8px 24px rgba(45, 35, 20, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.developer-photo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px #b59f79, 0 12px 28px rgba(45, 35, 20, 0.12);
+}
+.developer-photo-img {
+  width: 135px;
+  height: 135px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #e2d7c5;
+  display: block;
+}
+.developer-photo-caption {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #4a3e2e;
+  letter-spacing: 0.2px;
+}
+.status-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2ea836;
+  box-shadow: 0 0 6px rgba(46, 168, 54, 0.6);
+  display: inline-block;
+  animation: pulseGreen 2s infinite ease-in-out;
+}
+@keyframes pulseGreen {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+@media (max-width: 640px) {
+  .about-hero {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+  .about-hero-text h2 {
+    font-size: 26px !important;
+  }
+}
