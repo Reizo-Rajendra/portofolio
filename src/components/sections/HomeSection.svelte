@@ -14,31 +14,31 @@
   }
 </script>
 
-<div class="about-hero">
-  <div class="about-hero-text">
-    <span class="eyebrow">{ABOUT_ME.eyebrow}</span>
-    <h2 id="panel-title">
-      {ABOUT_ME.title}<br />
-      {ABOUT_ME.titleSub}
-    </h2>
-    <p class="lead">{ABOUT_ME.lead}</p>
-  </div>
-
-  <div class="about-hero-photo">
-    <div class="developer-photo-card">
+<div class="developer-hero-section">
+  <div class="developer-avatar-wrapper">
+    <div class="developer-avatar-glow">
       <img
         src="/assets/profile/reizo-avatar.webp"
         alt="Reizo Rajendra"
-        class="developer-photo-img"
-        width="135"
-        height="135"
+        class="developer-avatar-img"
+        width="120"
+        height="120"
         loading="eager"
       />
-      <div class="developer-photo-caption">
-        <span class="status-pulse-dot" aria-hidden="true"></span>
-        <span>Reizo Rajendra</span>
-      </div>
     </div>
+    <div class="developer-status-pill">
+      <span class="status-pulse-dot" aria-hidden="true"></span>
+      <span>ACTIVE LEAD</span>
+    </div>
+  </div>
+
+  <div class="developer-hero-intro">
+    <span class="eyebrow">{ABOUT_ME.eyebrow}</span>
+    <h2 id="panel-title" class="developer-name-title">
+      {ABOUT_ME.title}
+      <span class="title-sub-text">{ABOUT_ME.titleSub}</span>
+    </h2>
+    <p class="developer-lead-bio">{ABOUT_ME.lead}</p>
   </div>
 </div>
 

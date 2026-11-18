@@ -66,7 +66,7 @@
   <div class="vignette"></div>
 
   <header class="topbar">
-    <a class="identity" href="#" aria-label="Return to the village">
+    <a class="identity" href="/" onclick={(e) => e.preventDefault()} aria-label="Return to the village">
       <span class="leaf">✦</span>
       <span>
         Reizo's <b>Village</b>

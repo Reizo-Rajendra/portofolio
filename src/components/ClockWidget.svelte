@@ -37,13 +37,12 @@
 </script>
 
 <svelte:document onpointerdown={handleClickOutside} />
+<svelte:window onkeydown={handleKeydown} />
 
 <div
   bind:this={containerEl}
   class="clock-controls"
-  onblur={handleBlur}
-  onkeydown={handleKeydown}
-  onkeyup={(e) => e.stopPropagation()}
+  onfocusout={handleBlur}
   role="region"
   aria-label="Clock and lighting"
 >
