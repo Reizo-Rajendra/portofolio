@@ -5,8 +5,8 @@
 // - Footstep dust puffs
 // - Click-to-move target ring marker
 
-const FIREFLY_COUNT = 16;
-const LEAF_COUNT = 12;
+const FIREFLY_COUNT = 8;
+const LEAF_COUNT = 6;
 
 export class AmbientSystem {
   constructor() {

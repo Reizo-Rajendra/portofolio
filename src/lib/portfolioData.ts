@@ -247,11 +247,6 @@ export const PROJECTS: Project[] = [
     cover: "/assets/projects/polanitas/cover.webp",
     images: [
       "/assets/projects/polanitas/cover.webp",
-      "/assets/projects/polanitas/sign-to-voice.webp",
-      "/assets/projects/polanitas/vision-describer.webp",
-      "/assets/projects/polanitas/features-diagram.webp",
-      "/assets/projects/polanitas/system-diagram.webp",
-      "/assets/projects/polanitas/landing.webp",
     ],
     stack: [
       "Next.js 16",
@@ -289,9 +284,9 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "ai-gesture",
-    name: "Cyber Gesture AI",
+    name: "AI Gesture — Hand Recognition",
     category: "COMPUTER VISION & REAL-TIME AI",
-    tagline: "Real-time hand landmark tracking, cybernetic 3D mesh & voice synthesis.",
+    tagline: "Real-time hand landmark tracking, 3D mesh & voice synthesis.",
     description:
       "Aplikasi Computer Vision futuristik berbasis AI yang mengenali gestur tangan secara instan di depan webcam, menampilkan efek jaring-jaring 3D hologram neon sci-fi, dan mengeksekusi sintesis suara perkenalan diri dalam Bahasa Indonesia secara otomatis tanpa jeda / lag.",
     cover: "/assets/projects/ai-gesture/cover.webp",
@@ -321,7 +316,7 @@ export const PROJECTS: Project[] = [
           "Deteksi instan dalam 2 frame konfirmasi menggunakan algoritma normalisasi telapak tangan yang akurat pada berbagai jarak kamera dan sudut miring.",
       },
       {
-        title: "Visual Mesh Cybernetic 3D Hologram",
+        title: "Visual Mesh 3D Hologram",
         description:
           "Rendering 21 titik koordinat sendi tangan bercahaya neon hijau dan garis sambung bertema sci-fi HUD telemetry.",
       },
@@ -342,10 +337,6 @@ export const PROJECTS: Project[] = [
     cover: "/assets/projects/christmas-booth/cover.webp",
     images: [
       "/assets/projects/christmas-booth/cover.webp",
-      "/assets/projects/christmas-booth/envelope.webp",
-      "/assets/projects/christmas-booth/opened-letter.webp",
-      "/assets/projects/christmas-booth/photobooth-studio.webp",
-      "/assets/projects/christmas-booth/photostrip-3cut.webp",
     ],
     stack: [
       "JavaScript (ES6+)",
