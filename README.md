@@ -7,39 +7,52 @@
 [![Bundler: Vite](https://img.shields.io/badge/Bundler-Vite%208-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Developer: Reizo Rajendra](https://img.shields.io/badge/Developer-Reizo%20Rajendra-28a745?style=for-the-badge)](https://github.com/Reizo-Rajendra)
 
-Portofolio interaktif bergaya **2D Pixel-Art Cozy RPG Village** yang dibangun secara modern menggunakan **Svelte 5 (Runes Architecture) + Tailwind CSS + TypeScript + Resend API**.
+Portofolio interaktif bertema **2D Pixel-Art Cozy RPG Village** yang dibangun secara modern dan berkinerja tinggi menggunakan arsitektur **Svelte 5 (Runes) + Tailwind CSS v4 + TypeScript + Resend API**.
 
-Pengunjung dapat menjelajahi desa interaktif, mengontrol karakter, mengunjungi berbagai bangunan (*Home, Gallery, Workshop, Pigeon Coop*), menikmati musik 16-bit prosedural dinamis yang menyesuaikan waktu siang/malam, berinteraksi dengan hewan desa (kucing, bebek, burung merpati), melihat proyek-proyek unggulan, serta mengirimkan pesan langsung ke email Reizo melalui **Resend API**.
+Pengunjung dapat menjelajahi desa piksel yang hidup, menggerakkan karakter dengan navigasi intuitif (WASD), mengunjungi berbagai bangunan utama (*Home, Gallery, Workshop, Pigeon Coop*), menikmati musik 16-bit prosedural yang beradaptasi dengan siklus siang/malam, berinteraksi dengan hewan desa (kucing, bebek kolam, merpati pos), mengeksplorasi karya proyek unggulan, serta mengirimkan surat kontak langsung ke email Reizo melalui **Resend API**.
 
 ---
 
 ## 🌟 Fitur Utama
 
-- 🎮 **Interactive 2D RPG World & Click-to-Move**:
-  - Kontrol karakter mulus menggunakan Keyboard (WASD / Arrow Keys), Mouse Click-to-Move, atau Virtual Touch Joystick pada perangkat mobile.
-  - Pathfinding 2D collision system untuk navigasi desa.
-- 📬 **Integrasi Resend API (Merpati Pos / Say Hello)**:
-  - Mengirimkan pesan/surat kontak langsung ke email Reizo tanpa perlu membuka aplikasi email eksternal.
-  - Type-safe email client service (`src/lib/resend.ts`) & serverless API endpoint (`api/contact.ts`).
-- 🎨 **Tailwind CSS v4 & Pixel-Art Styling**:
-  - Utility classes Tailwind modern terintegrasi mulus dengan custom 16-bit pixel theme tanpa merusak estetika retro.
-- 🔷 **100% TypeScript (Strict Type Safety)**:
-  - Antarmuka tipe lengkap (`src/lib/types.ts`), typed components (`<script lang="ts">`), dan validasi compile-time via `svelte-check`.
+- 🎮 **Interactive 2D RPG Village Engine**:
+  - Kontrol karakter mulus menggunakan **Keyboard (WASD)**, Mouse Click-to-Move, atau Virtual Touch Joystick di perangkat mobile.
+  - Pathfinding 2D collision system untuk navigasi desa tanpa hambatan.
+  - Interaksi seru: elus kucing desa, beri makan bebek di kolam tengah, dan terbangkan merpati pos.
+- ⚡ **Zero-Lag & High Performance**:
+  - Peta desa ultra-ringan teroptimasi (turun dari 9.5 MB ke 733 KB) dengan waktu inisialisasi instan (< 10 ms).
+  - Capping *Device Pixel Ratio* (DPR) cerdas untuk performa 60 FPS mulus di laptop, retina display, dan perangkat mobile.
+  - Auto-pause canvas render loop saat membaca modal dialog untuk efisiensi CPU/GPU mendekati 0%.
+- 📬 **Kirim Surat Merpati (Integrasi Resend API)**:
+  - Mengirimkan pesan/surat kontak langsung ke email Reizo (`reizorjnda@gmail.com`) dengan validasi real-time.
+  - Layanan email type-safe (`src/lib/resend.ts`) & serverless API endpoint (`api/contact.ts`).
+- 🎨 **Estetika Cozy Pixel & Modern Clean UI**:
+  - Menggabungkan elemen pixel-art 16-bit otentik dengan layout modern kertas perkamen yang rapi dan elegan.
+  - Dilengkapi foto profil pengembang resmi (*Developer Hero Section*) dengan indikator status aktif.
+- 🔷 **100% Type-Safe TypeScript & Svelte 5 Runes**:
+  - Menggunakan reaktivitas modern Svelte 5 (`$state`, `$derived`, `$effect`, `$props`).
+  - Strict type checking dengan 0 linter warning dan 0 compiler error.
 - 🌅 **Siklus Siang & Malam Dinamis (Day / Night Cycle)**:
-  - Widget jam desa interaktif yang sinkron dengan waktu nyata atau dapat diubah manual (Day / Night).
-  - Efek pencahayaan dinamis, lentera/obor pemain menyala di malam hari, partikel kunang-kunang (*fireflies*), dan bintang malam.
-- 🎵 **16-bit Procedural Web Audio BGM**:
-  - Musik latar chiptune retro yang di-generate langsung di browser tanpa file audio berat (*zero bandwidth*).
+  - Widget jam desa interaktif yang sinkron otomatis dengan waktu lokal nyata (WIB/UTC+7) atau dapat diubah manual (Day / Night).
+  - Lentera dan obor malam, efek pencahayaan dinamis, partikel kunang-kunang berpendar lembut, serta dedaunan siang yang melayang alami.
+- 🎵 **16-bit Procedural Web Audio Synthesizer**:
+  - Musik latar chiptune retro yang disintesis langsung di browser menggunakan Web Audio API tanpa perlu aset audio eksternal (*zero bandwidth*).
   - Lagu berganti otomatis sesuai suasana: *"Cozy Village Morning"* (siang) dan *"Starry Night Lullaby"* (malam).
-- 🏛️ **Bangunan & Showcase Terintegrasi**:
-  - **Home**: Profil lengkap Reizo Rajendra, timeline pengalaman (*Snapandev, Zears Gaming, OSIS, Paskibra*), dan riwayat pendidikan.
-  - **Gallery**: Showcase proyek terpilih (*Megantara 3D WebGL, POLANITAS Platform Inklusif AI, Cyber Gesture AI, Vintage Christmas Photobooth, Zears Gaming Stream Hub*).
-  - **Workshop**: Pemetaan keahlian (*Frontend, Backend, Cloud, Tools, UI/UX*).
-  - **Pigeon Coop**: Kontak email langsung, salin email cepat, dan formulir pengiriman surat via Resend API.
 
 ---
 
-## 🚀 Cara Menjalankan di Localhost
+## 🏛️ Bangunan Desa & Showcase
+
+| Bangunan | Nama Area | Konten & Deskripsi |
+| :--- | :--- | :--- |
+| 🏡 **Home** | *About Me* | Profil lengkap Reizo Rajendra, foto profil resmi, peran aktif sebagai **Ketua & Lead Full Stack Developer di Ekstrakurikuler Software Engineering SMKN 8 Semarang**, pengalaman kreator YouTube di **@zears_gaming**, serta riwayat pendidikan formal. |
+| 🖼️ **Gallery** | *Selected Projects* | Galeri karya inovasi digital dengan visual poster bergaya Canva & presentasi interaktif: **Megantara 3D Culture WebGL**, **POLANITAS Platform Inklusif AI Disabilitas**, **AI Gesture Recognition**, **Vintage Christmas Photobooth**, dan **Zears Gaming Stream Hub**. |
+| 🛠️ **Workshop** | *My Toolkit* | Pemetaan keahlian teknis (*Frontend, Backend & DB, Cloud Services, State Management, Tools & Design*). |
+| 🕊️ **Pigeon Coop** | *Say Hello* | Jalur komunikasi langsung melalui email resmi, tautan media sosial (*YouTube, GitHub, Instagram, Threads*), dan formulir kirim surat interaktif via **Resend API**. |
+
+---
+
+## 🚀 Cara Menjalankan di Lingkungan Lokal
 
 ### 1. Clone Repositori
 ```bash
@@ -52,48 +65,53 @@ cd portofolio
 npm install
 ```
 
-### 3. Konfigurasi Lingkungan (Opsional untuk Resend Nyata)
-Buat file `.env` (atau set environment variable):
+### 3. Konfigurasi Lingkungan (Opsional untuk Resend API Nyata)
+Buat file `.env` di root project:
 ```env
-RESEND_API_KEY=re_xxxxxxxxxxxx
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxx
 ```
-*(Catatan: Tanpa API key pun sistem otomatis beralih ke mode simulasi cerdas sehingga form tetap dapat dites secara lokal).*
+*(Catatan: Tanpa API key pun sistem otomatis berjalan dalam mode simulasi cerdas sehingga formulir surat tetap dapat diuji coba secara lokal).*
 
-### 4. Jalankan Dev Server
+### 4. Jalankan Server Development
 ```bash
 npm run dev
 ```
-Buka browser dan kunjungi:
+Buka peramban (browser) dan akses:
 👉 **[http://localhost:3000](http://localhost:3000)**
 
 ---
 
-## 🛠️ Build untuk Production
+## 🛠️ Build untuk Produksi
 
 ```bash
+# Menjalankan build produksi yang optimal
 npm run build
+
+# Menjalankan preview lokal hasil build produksi
 npm run preview
 ```
-Hasil build yang optimal dan sangat ringan (~130 KB JS) akan otomatis berada di folder `dist/`.
+Hasil kompilasi produksi yang super ringan (~132 KB JS) akan tersimpan di dalam folder `dist/`.
 
 ---
 
-## 📦 Tech Stack
+## 📦 Tech Stack Utama
 
-- **Framework**: [Svelte 5](https://svelte.dev/) (`$state`, `$derived`, `$effect` runes)
+- **Frontend Framework**: [Svelte 5](https://svelte.dev/) (Runes reactivity)
 - **Language**: [TypeScript 5](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) + Custom Retro 16-Bit Pixel CSS
-- **Email Service**: [Resend](https://resend.com/)
-- **Tooling & Dev Server**: [Vite 8](https://vitejs.dev/)
-- **Graphics Engine**: HTML5 Canvas 2D + SVG Layering
-- **Audio Engine**: Web Audio API (Procedural Synthesizer & Chiptune Chords)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) + Custom Retro 16-Bit Pixel System
+- **Bundler & Tooling**: [Vite 8](https://vitejs.dev/)
+- **Email Service**: [Resend API](https://resend.com/)
+- **Rendering Engine**: HTML5 Canvas 2D + Optimized Lossless WebP Vector Layering
+- **Audio Engine**: Web Audio API (Chiptune Procedural Synthesizer)
 
 ---
 
-## 👤 Author
+## 👤 Author & Profil
 
 **Reizo Rajendra Dianta**
+- **Peran**: Ketua & Lead Full Stack Developer · Ekstrakurikuler Software Engineering SMKN 8 Semarang
 - **GitHub**: [@Reizo-Rajendra](https://github.com/Reizo-Rajendra)
 - **YouTube**: [@zears_gaming](https://youtube.com/@zears_gaming?si=lz9bgcOxax5GPQZF)
 - **Instagram**: [@reizo_rajendra](https://www.instagram.com/reizo_rajendra)
-- **Email**: `reizorjnda@gmail.com`
+- **Threads**: [@reizo_rajendra](https://www.threads.com/@reizo_rajendra)
+- **Email**: [reizorjnda@gmail.com](mailto:reizorjnda@gmail.com)
