@@ -60,7 +60,7 @@
   <canvas
     id="village"
     tabindex="0"
-    aria-label="Village. Use arrow keys or WASD to walk, click anywhere to move, E to interact. Use the navigation buttons for direct access."
+    aria-label="Village. Use WASD to walk, click anywhere to move, E to interact. Use the navigation buttons for direct access."
   ></canvas>
 
   <div class="vignette"></div>
@@ -114,8 +114,7 @@
 
   <div class="controls-hint">
     <span>
-      <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> /
-      <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd> / click to move
+      <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> to move
     </span>
     <span><kbd>E</kbd> interact</span>
     <span><kbd>Esc</kbd> close</span>
@@ -247,6 +246,6 @@
       </button>
     </div>
     <button id="reset-position" type="button">↻ Return to village square</button>
-    <small>Keyboard: WASD / arrows to move · E to interact</small>
+    <small>Keyboard: WASD to move · E to interact</small>
   </dialog>
 </main>

@@ -22,7 +22,7 @@ let delayFilter = null;
 let timerID = null;
 let nextBarTime = 0;
 let currentBar = 0;
-const LOOKAHEAD_MS = 40;
+const LOOKAHEAD_MS = 80;
 const SCHEDULE_AHEAD_TIME = 0.25; // seconds
 
 // Note Frequencies in Hz
@@ -495,7 +495,7 @@ function playNatureAmbience(time, isNightTheme) {
 
 // Music Scheduler Loop
 function scheduleNextBar() {
-  if (!isPlayingBgm || !audioCtx) return;
+  if (!isPlayingBgm || !audioCtx || isMuted) return;
 
   const currentTheme = getEffectiveTheme();
   const isNightTheme = currentTheme === 'night';
@@ -547,6 +547,20 @@ function stopScheduler() {
     clearInterval(timerID);
     timerID = null;
   }
+}
+
+if (typeof document !== 'undefined') {
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (audioCtx && audioCtx.state === 'running') {
+        audioCtx.suspend().catch(() => {});
+      }
+    } else {
+      if (audioCtx && audioCtx.state === 'suspended' && isPlayingBgm && !isMuted) {
+        audioCtx.resume().catch(() => {});
+      }
+    }
+  });
 }
 
 export const sound = {

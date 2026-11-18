@@ -5,8 +5,8 @@
 // - Footstep dust puffs
 // - Click-to-move target ring marker
 
-const FIREFLY_COUNT = 8;
-const LEAF_COUNT = 6;
+const FIREFLY_COUNT = 5;
+const LEAF_COUNT = 4;
 
 export class AmbientSystem {
   constructor() {
@@ -164,22 +164,20 @@ export class AmbientSystem {
 
   // Draw ground-level effects (dust, pond sparkles, target marker)
   drawGround(ctx) {
-    // 1. Draw footstep dust
-    for (const d of this.dust) {
-      ctx.save();
-      ctx.globalAlpha = d.alpha;
+    // 1. Draw footstep dust (fast batched pixel squares)
+    if (this.dust.length > 0) {
       ctx.fillStyle = '#bfa576';
-      ctx.beginPath();
-      ctx.arc(d.x, d.y, d.size, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
+      for (const d of this.dust) {
+        ctx.globalAlpha = d.alpha;
+        ctx.fillRect(Math.round(d.x), Math.round(d.y), d.size, d.size);
+      }
+      ctx.globalAlpha = 1;
     }
 
     // 2. Draw pond water sparkles
     for (const s of this.sparkles) {
       const progress = s.life / s.maxLife;
       const alpha = Math.sin(progress * Math.PI) * 0.75;
-      ctx.save();
       ctx.globalAlpha = alpha;
       ctx.fillStyle = '#ffffff';
 
@@ -191,8 +189,8 @@ export class AmbientSystem {
       ctx.fillRect(px + 3, py, 1, 1);
       ctx.fillRect(px, py - 2, 1, 1);
       ctx.fillRect(px, py + 3, 1, 1);
-      ctx.restore();
     }
+    ctx.globalAlpha = 1;
 
     // 3. Draw click target marker (RPG style pulsing ring)
     if (this.targetMarker) {
@@ -218,34 +216,30 @@ export class AmbientSystem {
   // Draw air-level effects (fireflies, leaves)
   drawAir(ctx, isNight) {
     if (isNight) {
-      // Draw fireflies
+      // Draw fireflies (fast pixel glow, zero arcs)
       for (const f of this.fireflies) {
         const pulse = 0.4 + Math.sin(f.phase * 3) * 0.45;
         if (pulse <= 0.05) continue;
 
-        ctx.save();
         ctx.globalAlpha = pulse;
 
-        // Outer soft glow
+        const px = Math.round(f.x);
+        const py = Math.round(f.y);
+
+        // Outer soft glow (square pixel)
         ctx.fillStyle = f.color;
-        ctx.beginPath();
-        ctx.arc(f.x, f.y, 4, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.fillRect(px - 2, py - 2, 4, 4);
 
         // Bright pixel core
         ctx.fillStyle = '#ffffff';
-        ctx.fillRect(Math.round(f.x) - 1, Math.round(f.y) - 1, 2, 2);
-        ctx.restore();
+        ctx.fillRect(px - 1, py - 1, 2, 2);
       }
+      ctx.globalAlpha = 1;
     } else {
-      // Draw drifting leaves
+      // Draw drifting leaves (clean pixel rectangles, zero matrix rotation)
       for (const l of this.leaves) {
-        ctx.save();
         ctx.fillStyle = l.color;
-        ctx.translate(l.x, l.y);
-        ctx.rotate(Math.sin(l.sway) * 0.5);
-        ctx.fillRect(-l.size / 2, -l.size / 2, l.size, l.size * 1.5);
-        ctx.restore();
+        ctx.fillRect(Math.round(l.x), Math.round(l.y), l.size, l.size * 1.4);
       }
     }
   }
