@@ -4,6 +4,8 @@
   import type { ContactFormData } from '../../lib/types.js';
 
   const ICONS: Record<string, string> = {
+    pigeon:
+      'M9 2h3v1H9zM12 3h2v3h-2zM8 3h1v3H8zM14 4h2v1h-2zM7 6h5v1H7zM5 7h7v1H5zM3 8h10v2H3zM2 9h2v2H2zM1 10h2v2H1zM4 10h8v1H4zM5 11h6v1H5zM6 12h1v2H6zM9 12h1v2H9z',
     mail: 'M2 4h12v1H2zM1 5h1v7H1zM14 5h1v7h-1zM2 12h12v1H2zM2 5h2v1H2zM4 6h2v1H4zM6 7h4v1H6zM10 6h2v1h-2zM12 5h2v1h-2z',
     youtube:
       'M2 3h10v1h-10zM1 4h12v1h-12zM0 5h16v1h-16zM0 6h6v1h-6zM8 6h8v1h-8zM0 7h6v1h-6zM10 7h6v1h-6zM0 8h6v1h-6zM10 8h6v1h-6zM0 9h6v1h-6zM8 9h8v1h-8zM0 10h16v1h-16zM1 11h12v1h-12zM2 12h10v1h-10z',
@@ -17,7 +19,6 @@
       'M5 1h6v1H5zM3 2h2v1H3zM2 3h1v9H2zM3 12h2v1H3zM5 13h6v1H5zM11 11h2v2h-2zM12 3h1v2h-1zM11 2h1v1h-1zM6 5h4v1H6zM10 6h1v5h-1zM6 7h6v1H6zM5 8h1v2H5zM6 10h4v1H6zM12 8h1v3h-1z',
   };
 
-  let isCopied = $state(false);
   let showPigeonForm = $state(false);
   let isSending = $state(false);
   let statusMessage = $state<{ text: string; type: 'success' | 'error' } | null>(null);
@@ -27,13 +28,6 @@
     email: '',
     message: '',
   });
-
-  function copyEmail(): void {
-    navigator.clipboard.writeText(CONTACT_INFO.email).then(() => {
-      isCopied = true;
-      setTimeout(() => (isCopied = false), 2500);
-    });
-  }
 
   async function handleSendLetter(e: SubmitEvent): Promise<void> {
     e.preventDefault();
@@ -68,7 +62,13 @@
 
 <!-- Top Email Direct Action Card -->
 <div class="contact-card">
-  <img src="/assets/animals/pigeon-white.png" alt="A little white pigeon" />
+  <div class="contact-pigeon-wrapper">
+    <img
+      src="/assets/animals/pigeon-white.png"
+      alt="A little white pigeon"
+      class="contact-pigeon-img"
+    />
+  </div>
   <div class="contact-card-actions">
     <a class="contact-send" href={`mailto:${CONTACT_INFO.email}`} title="Klik untuk membuka aplikasi email">
       <svg
@@ -89,14 +89,6 @@
       </span>
       <span aria-hidden="true">→</span>
     </a>
-    <button
-      type="button"
-      class={`contact-copy-pill${isCopied ? ' copied' : ''}`}
-      onclick={copyEmail}
-      title="Salin alamat email ke clipboard"
-    >
-      <span>{isCopied ? '✓ Email Tersalin!' : '📋 Salin Alamat Email'}</span>
-    </button>
   </div>
 
   <!-- Resend Interactive Pigeon Form Toggle -->
@@ -106,7 +98,18 @@
     onclick={() => (showPigeonForm = !showPigeonForm)}
     aria-expanded={showPigeonForm}
   >
-    <span>{showPigeonForm ? '▲ Tutup Formulir Surat' : '🕊️ Kirim Surat Merpati (via Resend)'}</span>
+    <svg
+      class="contact-pixel-icon"
+      viewBox="0 0 16 16"
+      width="16"
+      height="16"
+      fill="currentColor"
+      shape-rendering="crispEdges"
+      aria-hidden="true"
+    >
+      <path d={ICONS.pigeon} />
+    </svg>
+    <span>{showPigeonForm ? 'Tutup Formulir Surat' : 'Kirim Surat Merpati (via Resend)'}</span>
   </button>
 
   {#if showPigeonForm}
@@ -154,7 +157,18 @@
             class="pigeon-submit-btn font-mono"
             disabled={isSending}
           >
-            <span>{isSending ? '⏳ Mengirim via Resend...' : '✉️ Terbangkan Surat (Resend)'}</span>
+            <svg
+              class="contact-pixel-icon"
+              viewBox="0 0 16 16"
+              width="16"
+              height="16"
+              fill="currentColor"
+              shape-rendering="crispEdges"
+              aria-hidden="true"
+            >
+              <path d={ICONS.mail} />
+            </svg>
+            <span>{isSending ? 'Mengirim via Resend...' : 'Terbangkan Surat (Resend)'}</span>
           </button>
           <small class="text-xs text-amber-900 font-mono opacity-75">Powered by Resend API</small>
         </div>
