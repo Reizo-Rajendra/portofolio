@@ -1,9 +1,21 @@
 import { Resend } from 'resend';
+import fs from 'fs';
+import path from 'path';
 
-// Initialize Resend with API key from environment variable
-// (Falls back to development placeholder if key is not yet set)
-const resendApiKey = process.env.RESEND_API_KEY || 're_123456789_placeholder';
-const resend = new Resend(resendApiKey);
+function getResendApiKey(): string {
+  if (process.env.RESEND_API_KEY) return process.env.RESEND_API_KEY;
+  try {
+    const envPath = path.resolve(process.cwd(), '.env');
+    if (fs.existsSync(envPath)) {
+      const content = fs.readFileSync(envPath, 'utf8');
+      const match = content.match(/RESEND_API_KEY=([^\r\n]+)/);
+      if (match && match[1]) return match[1].trim();
+    }
+  } catch (e) {
+    // ignore
+  }
+  return '';
+}
 
 export default async function handler(req: any, res: any) {
   // Set CORS headers
@@ -29,31 +41,24 @@ export default async function handler(req: any, res: any) {
       });
     }
 
-    // Jika belum ada RESEND_API_KEY yang valid, simulasi kirim sukses untuk development
-    if (!process.env.RESEND_API_KEY || process.env.RESEND_API_KEY.includes('placeholder')) {
-      console.log('[Dev Resend Mock] Received message from:', name, email, message);
-      return res.status(200).json({
-        ok: true,
-        message: `[Simulasi Resend Berhasil] Pesan dari ${name} (${email}) telah diterima! (Tambahkan RESEND_API_KEY di .env untuk pengiriman nyata)`,
-      });
-    }
+    const apiKey = getResendApiKey();
+    const resend = new Resend(apiKey);
 
-    // Pengiriman nyata via Resend API
-    const data = await resend.emails.send({
+    const result = await resend.emails.send({
       from: 'Portfolio Visitor <onboarding@resend.dev>',
       to: ['reizorjnda@gmail.com'],
       replyTo: email,
-      subject: `[Portfolio Contact] Pesan Baru dari ${name}`,
+      subject: `📬 [Merpati Pos Reizo] Surat Baru dari ${name}`,
       html: `
-        <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #fcf4e3; color: #302e27; border-radius: 8px;">
-          <h2 style="color: #334a35; border-bottom: 2px solid #dcb26b; padding-bottom: 8px;">📬 Surat Baru dari Reizo's Village</h2>
+        <div style="font-family: Arial, sans-serif; padding: 24px; background-color: #fbf6ec; color: #352b21; border-radius: 8px; border: 2px solid #c9b084;">
+          <h2 style="color: #3b5038; margin-top: 0; border-bottom: 2px solid #e1caa1; padding-bottom: 10px;">🕊️ Surat Baru dari Merpati Pos Desa</h2>
           <p><strong>Pengirim:</strong> ${name}</p>
-          <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-          <hr style="border: 0; border-top: 1px solid #d7cab1; margin: 16px 0;" />
-          <h3 style="color: #654e35;">Isi Pesan:</h3>
-          <p style="white-space: pre-wrap; background: #fff; padding: 12px; border: 1px solid #e2d2b5; border-radius: 4px;">${message}</p>
-          <hr style="border: 0; border-top: 1px solid #d7cab1; margin: 16px 0;" />
-          <small style="color: #8b713f;">Dikirim melalui integrasi Resend API pada Reizo's Village Portfolio</small>
+          <p><strong>Email Pengirim:</strong> <a href="mailto:${email}">${email}</a></p>
+          <hr style="border: 0; border-top: 1px solid #d9c5a3; margin: 18px 0;" />
+          <h3 style="color: #6a5332; margin-bottom: 8px;">Isi Pesan / Surat:</h3>
+          <div style="white-space: pre-wrap; background: #ffffff; padding: 16px; border: 1px solid #d9cbaf; border-radius: 6px; font-size: 14px; line-height: 1.6;">${message}</div>
+          <hr style="border: 0; border-top: 1px solid #d9c5a3; margin: 18px 0;" />
+          <small style="color: #8c764e; font-size: 11px;">Surat ini dikirim langsung melalui integrasi Resend API pada Reizo's Village Portfolio.</small>
         </div>
       `,
     });
@@ -61,7 +66,7 @@ export default async function handler(req: any, res: any) {
     return res.status(200).json({
       ok: true,
       message: 'Surat berhasil dikirim ke Reizo via Resend API!',
-      data,
+      data: result.data,
     });
   } catch (error: any) {
     console.error('[Resend API Error]:', error);

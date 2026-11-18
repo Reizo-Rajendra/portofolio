@@ -59,16 +59,23 @@ const server = http.createServer((req, res) => {
             return;
           }
 
-          const apiKey = process.env.RESEND_API_KEY;
-          if (apiKey && !apiKey.includes('placeholder')) {
+          let apiKey = process.env.RESEND_API_KEY;
+          if (!apiKey) {
+            try {
+              const envContent = fs.readFileSync(path.join(ROOT_DIR, '.env'), 'utf8');
+              const match = envContent.match(/RESEND_API_KEY=([^\r\n]+)/);
+              if (match) apiKey = match[1].trim();
+            } catch (e) {}
+          }
+          if (apiKey) {
             try {
               const { Resend } = require('resend');
               const resend = new Resend(apiKey);
               await resend.emails.send({
-                from: 'Portfolio Visitor <onboarding@resend.dev>',
+                from: 'onboarding@resend.dev',
                 to: ['reizorjnda@gmail.com'],
                 replyTo: email,
-                subject: `[Portfolio Contact] Pesan Baru dari ${name}`,
+                subject: `📬 [Merpati Pos Reizo] Surat Baru dari ${name}`,
                 html: `<p><strong>Pengirim:</strong> ${name} (${email})</p><p>${message}</p>`,
               });
             } catch (resendErr) {
