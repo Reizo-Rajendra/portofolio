@@ -201,8 +201,10 @@ export const PROJECTS: Project[] = [
     cover: "/assets/projects/megantara/cover.webp",
     images: [
       "/assets/projects/megantara/cover.webp",
-      "/assets/projects/megantara/preview-1.webp",
-      "/assets/projects/megantara/preview-2.webp",
+      "/assets/projects/megantara/map-3d.webp",
+      "/assets/projects/megantara/sumatera.webp",
+      "/assets/projects/megantara/angklung.webp",
+      "/assets/projects/megantara/totem.webp",
     ],
     stack: [
       "Next.js 16",
@@ -242,10 +244,14 @@ export const PROJECTS: Project[] = [
     tagline: "Platform AI inklusif untuk kemandirian penyandang disabilitas.",
     description:
       "Platform cerdas komprehensif yang dirancang untuk memberdayakan penyandang disabilitas. Menghadirkan TanganBicara AI untuk menerjemahkan bahasa isyarat BISINDO menjadi suara vokal bahasa Indonesia secara real-time, Mata AI (Gemini Vision) untuk mendeskripsikan lingkungan dan rintangan bagi tunanetra, serta sistem navigasi suara dan pelacak mata (eye tracking).",
-    cover: "/assets/projects/polanitas/features.svg",
+    cover: "/assets/projects/polanitas/cover.webp",
     images: [
-      "/assets/projects/polanitas/features.svg",
-      "/assets/projects/polanitas/system.svg",
+      "/assets/projects/polanitas/cover.webp",
+      "/assets/projects/polanitas/sign-to-voice.webp",
+      "/assets/projects/polanitas/vision-describer.webp",
+      "/assets/projects/polanitas/features-diagram.webp",
+      "/assets/projects/polanitas/system-diagram.webp",
+      "/assets/projects/polanitas/landing.webp",
     ],
     stack: [
       "Next.js 16",
@@ -288,8 +294,12 @@ export const PROJECTS: Project[] = [
     tagline: "Real-time hand landmark tracking, cybernetic 3D mesh & voice synthesis.",
     description:
       "Aplikasi Computer Vision futuristik berbasis AI yang mengenali gestur tangan secara instan di depan webcam, menampilkan efek jaring-jaring 3D hologram neon sci-fi, dan mengeksekusi sintesis suara perkenalan diri dalam Bahasa Indonesia secara otomatis tanpa jeda / lag.",
-    cover: "/assets/projects/ai-gesture/cover.svg",
-    images: ["/assets/projects/ai-gesture/cover.svg"],
+    cover: "/assets/projects/ai-gesture/cover.webp",
+    images: [
+      "/assets/projects/ai-gesture/cover.webp",
+      "/assets/projects/ai-gesture/hud-mesh.webp",
+      "/assets/projects/ai-gesture/gesture-guide.webp",
+    ],
     stack: [
       "Python 3.11",
       "MediaPipe (0.10.14)",
@@ -329,10 +339,13 @@ export const PROJECTS: Project[] = [
     tagline: "Artisanal vintage Korean 3-cut photobooth studio & 3D wax-sealed letter.",
     description:
       "Website interaktif bertema Artisanal Vintage Christmas & 3-Cut Photobooth Studio yang terinspirasi dari tren viral photobooth Korea (Life 3-Cuts). Dilengkapi amplop beludru merah 3D interaktif berstempel lilin emas asli dengan efek audio retakan lilin fisik, generator strip foto Polaroid vintage, filter film analog, dan studio stiker ornamen Natal.",
-    cover: "/assets/projects/christmas-booth/cover.jpg",
+    cover: "/assets/projects/christmas-booth/cover.webp",
     images: [
-      "/assets/projects/christmas-booth/cover.jpg",
-      "/assets/projects/christmas-booth/preview-1.jpg",
+      "/assets/projects/christmas-booth/cover.webp",
+      "/assets/projects/christmas-booth/envelope.webp",
+      "/assets/projects/christmas-booth/opened-letter.webp",
+      "/assets/projects/christmas-booth/photobooth-studio.webp",
+      "/assets/projects/christmas-booth/photostrip-3cut.webp",
     ],
     stack: [
       "JavaScript (ES6+)",
@@ -372,10 +385,11 @@ export const PROJECTS: Project[] = [
     tagline: "Live streams, community hub & game walkthroughs.",
     description:
       "Portal interaktif untuk kanal YouTube @zears_gaming, menampilkan jadwal streaming langsung, galeri gameplay pilihan, highlight klip gaming, dan koneksi langsung dengan komunitas penonton.",
-    cover: "/assets/projects/instafy/profile-cover.webp",
+    cover: "/assets/projects/zears-hub/cover.webp",
     images: [
-      "/assets/projects/instafy/profile-dark.webp",
-      "/assets/projects/instafy/profile-light.webp",
+      "/assets/projects/zears-hub/cover.webp",
+      "/assets/projects/zears-hub/channel-profile.webp",
+      "/assets/projects/zears-hub/videos-catalog.webp",
     ],
     stack: [
       "Next.js",
