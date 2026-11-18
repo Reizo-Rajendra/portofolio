@@ -1,7 +1,11 @@
-<script>
+<script lang="ts">
   import { ASSET_LIST, loadAsset } from '../lib/gameEngine.js';
 
-  let { onReady } = $props();
+  interface Props {
+    onReady: () => void;
+  }
+
+  let { onReady }: Props = $props();
 
   let loaded = $state(0);
   let failed = $state(false);

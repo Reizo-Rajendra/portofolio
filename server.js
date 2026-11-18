@@ -35,6 +35,60 @@ const server = http.createServer((req, res) => {
     cleanUrl = req.url;
   }
 
+  // Handle Resend Email Contact API endpoint
+  if (cleanUrl === '/api/contact') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (req.method === 'OPTIONS') {
+      res.writeHead(200);
+      res.end();
+      return;
+    }
+
+    if (req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { name, email, message } = JSON.parse(body || '{}');
+          if (!name || !email || !message) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ ok: false, message: 'Harap lengkapi semua data formulir.' }));
+            return;
+          }
+
+          const apiKey = process.env.RESEND_API_KEY;
+          if (apiKey && !apiKey.includes('placeholder')) {
+            try {
+              const { Resend } = require('resend');
+              const resend = new Resend(apiKey);
+              await resend.emails.send({
+                from: 'Portfolio Visitor <onboarding@resend.dev>',
+                to: ['reizorjnda@gmail.com'],
+                replyTo: email,
+                subject: `[Portfolio Contact] Pesan Baru dari ${name}`,
+                html: `<p><strong>Pengirim:</strong> ${name} (${email})</p><p>${message}</p>`,
+              });
+            } catch (resendErr) {
+              console.error('[Resend Error]:', resendErr);
+            }
+          } else {
+            console.log('[Dev Resend Server] Message received:', { name, email, message });
+          }
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: true, message: 'Surat berhasil dikirimkan via Resend API!' }));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, message: err.message }));
+        }
+      });
+      return;
+    }
+  }
+
   if (cleanUrl === '/' || cleanUrl === '') {
     cleanUrl = '/index.html';
   }

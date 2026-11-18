@@ -1,25 +1,32 @@
-<script>
+<script lang="ts">
   import { formatTime, formatDate } from '../lib/gameEngine.js';
 
-  let { now, mode, night, onChangeMode } = $props();
+  interface Props {
+    now: Date;
+    mode: 'auto' | 'day' | 'night';
+    night: boolean;
+    onChangeMode: (mode: 'auto' | 'day' | 'night') => void;
+  }
+
+  let { now, mode, night, onChangeMode }: Props = $props();
 
   let open = $state(false);
-  let containerEl = $state(null);
-  let buttonEl = $state(null);
+  let containerEl = $state<HTMLElement | null>(null);
+  let buttonEl = $state<HTMLButtonElement | null>(null);
 
-  function handleClickOutside(e) {
-    if (open && containerEl && !containerEl.contains(e.target)) {
+  function handleClickOutside(e: PointerEvent): void {
+    if (open && containerEl && !containerEl.contains(e.target as Node)) {
       open = false;
     }
   }
 
-  function handleBlur(e) {
-    if (!e.currentTarget.contains(e.relatedTarget)) {
+  function handleBlur(e: FocusEvent): void {
+    if (!e.currentTarget || !(e.currentTarget as HTMLElement).contains(e.relatedTarget as Node)) {
       open = false;
     }
   }
 
-  function handleKeydown(e) {
+  function handleKeydown(e: KeyboardEvent): void {
     e.stopPropagation();
     if (e.key === 'Escape' && open) {
       e.preventDefault();
@@ -80,9 +87,9 @@
     >
       <span class="lighting-title">VILLAGE LIGHT</span>
       {#each [
-        { id: 'auto', symbol: '◈', label: 'Auto' },
-        { id: 'day', symbol: '☀', label: 'Day' },
-        { id: 'night', symbol: '☾', label: 'Night' }
+        { id: 'auto' as const, symbol: '◈', label: 'Auto' },
+        { id: 'day' as const, symbol: '☀', label: 'Day' },
+        { id: 'night' as const, symbol: '☾', label: 'Night' }
       ] as opt}
         <button
           type="button"

@@ -1,14 +1,15 @@
-<script>
+<script lang="ts">
   import { ABOUT_ME, EXPERIENCES } from '../../lib/portfolioData.js';
+  import type { Experience } from '../../lib/types.js';
 
   // Sort order: 'newest' (2026 -> 2022, default) or 'chronological' (2022 -> 2026)
-  let sortOrder = $state('newest');
+  let sortOrder = $state<'newest' | 'chronological'>('newest');
 
-  let displayedExperiences = $derived(
+  let displayedExperiences: Experience[] = $derived(
     sortOrder === 'newest' ? [...EXPERIENCES] : [...EXPERIENCES].reverse()
   );
 
-  function toggleSort() {
+  function toggleSort(): void {
     sortOrder = sortOrder === 'newest' ? 'chronological' : 'newest';
   }
 </script>

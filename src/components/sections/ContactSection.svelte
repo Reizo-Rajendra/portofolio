@@ -1,7 +1,9 @@
-<script>
+<script lang="ts">
   import { CONTACT_INFO } from '../../lib/portfolioData.js';
+  import { sendEmailWithResend } from '../../lib/resend.js';
+  import type { ContactFormData } from '../../lib/types.js';
 
-  const ICONS = {
+  const ICONS: Record<string, string> = {
     mail: 'M2 4h12v1H2zM1 5h1v7H1zM14 5h1v7h-1zM2 12h12v1H2zM2 5h2v1H2zM4 6h2v1H4zM6 7h4v1H6zM10 6h2v1h-2zM12 5h2v1h-2z',
     youtube:
       'M2 3h10v1h-10zM1 4h12v1h-12zM0 5h16v1h-16zM0 6h6v1h-6zM8 6h8v1h-8zM0 7h6v1h-6zM10 7h6v1h-6zM0 8h6v1h-6zM10 8h6v1h-6zM0 9h6v1h-6zM8 9h8v1h-8zM0 10h16v1h-16zM1 11h12v1h-12zM2 12h10v1h-10z',
@@ -16,12 +18,45 @@
   };
 
   let isCopied = $state(false);
+  let showPigeonForm = $state(false);
+  let isSending = $state(false);
+  let statusMessage = $state<{ text: string; type: 'success' | 'error' } | null>(null);
 
-  function copyEmail() {
+  let formState: ContactFormData = $state({
+    name: '',
+    email: '',
+    message: '',
+  });
+
+  function copyEmail(): void {
     navigator.clipboard.writeText(CONTACT_INFO.email).then(() => {
       isCopied = true;
       setTimeout(() => (isCopied = false), 2500);
     });
+  }
+
+  async function handleSendLetter(e: SubmitEvent): Promise<void> {
+    e.preventDefault();
+    if (!formState.name.trim() || !formState.email.trim() || !formState.message.trim()) {
+      statusMessage = {
+        text: 'Mohon lengkapi semua kolom surat sebelum mengirim.',
+        type: 'error',
+      };
+      return;
+    }
+
+    isSending = true;
+    statusMessage = null;
+
+    const res = await sendEmailWithResend(formState);
+    isSending = false;
+
+    if (res.ok) {
+      statusMessage = { text: res.message, type: 'success' };
+      formState = { name: '', email: '', message: '' };
+    } else {
+      statusMessage = { text: res.message, type: 'error' };
+    }
   }
 </script>
 
@@ -63,6 +98,76 @@
       <span>{isCopied ? '✓ Email Tersalin!' : '📋 Salin Alamat Email'}</span>
     </button>
   </div>
+
+  <!-- Resend Interactive Pigeon Form Toggle -->
+  <button
+    type="button"
+    class="pigeon-form-toggle"
+    onclick={() => (showPigeonForm = !showPigeonForm)}
+    aria-expanded={showPigeonForm}
+  >
+    <span>{showPigeonForm ? '▲ Tutup Formulir Surat' : '🕊️ Kirim Surat Merpati (via Resend)'}</span>
+  </button>
+
+  {#if showPigeonForm}
+    <div class="pigeon-letter-box transition-all duration-200">
+      <form onsubmit={handleSendLetter} class="flex flex-col gap-1">
+        <div class="pigeon-form-field">
+          <label for="pigeon-name">Nama Pengirim:</label>
+          <input
+            id="pigeon-name"
+            type="text"
+            bind:value={formState.name}
+            placeholder="Nama Anda atau institusi..."
+            required
+            disabled={isSending}
+          />
+        </div>
+
+        <div class="pigeon-form-field">
+          <label for="pigeon-email">Email Anda:</label>
+          <input
+            id="pigeon-email"
+            type="email"
+            bind:value={formState.email}
+            placeholder="nama@email.com"
+            required
+            disabled={isSending}
+          />
+        </div>
+
+        <div class="pigeon-form-field">
+          <label for="pigeon-msg">Pesan / Surat:</label>
+          <textarea
+            id="pigeon-msg"
+            rows="3"
+            bind:value={formState.message}
+            placeholder="Tuliskan pesan Anda di sini..."
+            required
+            disabled={isSending}
+          ></textarea>
+        </div>
+
+        <div class="flex items-center justify-between gap-3 mt-1">
+          <button
+            type="submit"
+            class="pigeon-submit-btn font-mono"
+            disabled={isSending}
+          >
+            <span>{isSending ? '⏳ Mengirim via Resend...' : '✉️ Terbangkan Surat (Resend)'}</span>
+          </button>
+          <small class="text-xs text-amber-900 font-mono opacity-75">Powered by Resend API</small>
+        </div>
+
+        {#if statusMessage}
+          <div class={`pigeon-status-msg ${statusMessage.type}`}>
+            {statusMessage.text}
+          </div>
+        {/if}
+      </form>
+    </div>
+  {/if}
+
   <p class="contact-location">{CONTACT_INFO.location}</p>
 </div>
 

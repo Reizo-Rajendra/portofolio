@@ -1,16 +1,21 @@
-<script>
+<script lang="ts">
   import HomeSection from './sections/HomeSection.svelte';
   import ProjectsSection from './sections/ProjectsSection.svelte';
   import SkillsSection from './sections/SkillsSection.svelte';
   import ContactSection from './sections/ContactSection.svelte';
   import { BUILDINGS, BUILDING_COPY } from '../lib/portfolioData.js';
 
-  let { activeSection = $bindable(null), onClose } = $props();
+  interface Props {
+    activeSection?: string | null;
+    onClose?: () => void;
+  }
+
+  let { activeSection = $bindable(null), onClose }: Props = $props();
 
   let building = $derived(BUILDINGS.find((b) => b.id === activeSection));
-  let copy = $derived(activeSection ? BUILDING_COPY[activeSection] : '');
+  let copy = $derived(activeSection ? (BUILDING_COPY[activeSection] || '') : '');
 
-  function handleClose() {
+  function handleClose(): void {
     activeSection = null;
     if (onClose) onClose();
   }

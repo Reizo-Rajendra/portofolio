@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { SKILL_CATEGORIES } from '../../lib/portfolioData.js';
 </script>
 

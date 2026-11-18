@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import ClockWidget from './ClockWidget.svelte';
   import SoundWidget from './SoundWidget.svelte';
@@ -9,9 +9,18 @@
   import { initGameEngine, BUILDING_COPY_DATA } from '../lib/gameEngine.js';
   import { sound } from '../lib/audioEffects.js';
 
-  let { villageTime } = $props();
+  interface Props {
+    villageTime: {
+      now: Date;
+      mode: 'auto' | 'day' | 'night';
+      night: boolean;
+      onChangeMode: (mode: 'auto' | 'day' | 'night') => void;
+    };
+  }
 
-  let activeSection = $state(null);
+  let { villageTime }: Props = $props();
+
+  let activeSection = $state<string | null>(null);
   let buildingCopy = $derived(activeSection ? BUILDING_COPY_DATA[activeSection] || '' : '');
 
   onMount(() => {
@@ -23,12 +32,12 @@
 
     const cleanup = initGameEngine((sectionId) => {
       activeSection = sectionId;
-      const panel = document.querySelector('#panel');
+      const panel = document.querySelector<HTMLDialogElement>('#panel');
       if (panel && !panel.open) {
         sound.playChime();
         panel.showModal();
-        document.querySelector('.panel-main')?.scrollTo(0, 0);
-        document.querySelector('.panel-main')?.focus({ preventScroll: true });
+        document.querySelector<HTMLElement>('.panel-main')?.scrollTo(0, 0);
+        document.querySelector<HTMLElement>('.panel-main')?.focus({ preventScroll: true });
       }
     });
 
@@ -39,9 +48,10 @@
     };
   });
 
-  function handleDialogBackdrop(e) {
-    if (e.target && (e.target.id === 'panel' || e.target.id === 'menu')) {
-      e.target.close();
+  function handleDialogBackdrop(e: MouseEvent): void {
+    const target = e.target as HTMLDialogElement | null;
+    if (target && (target.id === 'panel' || target.id === 'menu') && typeof target.close === 'function') {
+      target.close();
     }
   }
 </script>
@@ -71,7 +81,7 @@
         now={villageTime.now}
         mode={villageTime.mode}
         night={villageTime.night}
-        onChangeMode={villageTime.changeMode}
+        onChangeMode={villageTime.onChangeMode}
       />
     </div>
   </header>

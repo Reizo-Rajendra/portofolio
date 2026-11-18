@@ -1,8 +1,12 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import { sound } from '../lib/audioEffects.js';
 
-  let { night } = $props();
+  interface Props {
+    night: boolean;
+  }
+
+  let { night }: Props = $props();
 
   let open = $state(false);
   let isMuted = $state(false);
@@ -10,8 +14,8 @@
   let currentTheme = $state('auto');
   let volume = $state(75);
   let trackInfo = $state(sound.getCurrentTrack());
-  let containerEl = $state(null);
-  let triggerEl = $state(null);
+  let containerEl = $state<HTMLElement | null>(null);
+  let triggerEl = $state<HTMLButtonElement | null>(null);
 
   onMount(() => {
     sound.initFromStorage();

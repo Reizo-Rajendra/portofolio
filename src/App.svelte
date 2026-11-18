@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import LoadingScreen from './components/LoadingScreen.svelte';
   import EntryScreen from './components/EntryScreen.svelte';
@@ -7,11 +7,11 @@
   import { sound } from './lib/audioEffects.js';
 
   // App Phases: 'loading' | 'entry' | 'world'
-  let phase = $state('loading');
+  let phase = $state<'loading' | 'entry' | 'world'>('loading');
 
   // Time and Lighting State
   let now = $state(new Date());
-  let mode = $state('auto');
+  let mode = $state<'auto' | 'day' | 'night'>('auto');
 
   onMount(() => {
     try {
@@ -23,7 +23,7 @@
       // ignore
     }
 
-    let timer;
+    let timer: ReturnType<typeof setTimeout> | undefined;
     const tick = () => {
       now = new Date();
       clearTimeout(timer);
@@ -43,7 +43,7 @@
     };
   });
 
-  function changeMode(newMode) {
+  function changeMode(newMode: 'auto' | 'day' | 'night'): void {
     mode = newMode;
     try {
       localStorage.setItem('village-lighting', newMode);
@@ -63,6 +63,7 @@
     mode,
     night,
     changeMode,
+    onChangeMode: changeMode,
   });
 </script>
 

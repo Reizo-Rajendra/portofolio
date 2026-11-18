@@ -1,4 +1,13 @@
-export const BUILDINGS = [
+import type {
+  Building,
+  AboutMe,
+  Experience,
+  Project,
+  SkillCategory,
+  ContactInfo,
+} from './types.js';
+
+export const BUILDINGS: Building[] = [
   {
     id: "home",
     name: "Home",
@@ -41,14 +50,14 @@ export const BUILDINGS = [
   },
 ];
 
-export const BUILDING_COPY = {
+export const BUILDING_COPY: Record<string, string> = {
   home: "About me",
   projects: "Selected projects",
   skills: "Skills & tools",
   contact: "Say hello",
 };
 
-export const ABOUT_ME = {
+export const ABOUT_ME: AboutMe = {
   eyebrow: "01 / HOME / ABOUT ME",
   title: "Hey, I'm Reizo.",
   titleSub: "Welcome to my world.",
@@ -84,7 +93,7 @@ export const ABOUT_ME = {
   ],
 };
 
-export const EXPERIENCES = [
+export const EXPERIENCES: Experience[] = [
   {
     id: "snapandev-lead",
     company: "Snapandev — SMKN 8 Semarang",
@@ -181,7 +190,7 @@ export const EXPERIENCES = [
   },
 ];
 
-export const PROJECTS = [
+export const PROJECTS: Project[] = [
   {
     id: "megantara",
     name: "Megantara (Batik Mega Mendung 3D)",
@@ -396,7 +405,7 @@ export const PROJECTS = [
   },
 ];
 
-export const SKILL_CATEGORIES = [
+export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: "Frontend",
     icon: "⌘",
@@ -461,7 +470,7 @@ export const SKILL_CATEGORIES = [
   },
 ];
 
-export const CONTACT_INFO = {
+export const CONTACT_INFO: ContactInfo = {
   email: "reizorjnda@gmail.com",
   location: "Based in Semarang, Indonesia · UTC+7",
   socials: [

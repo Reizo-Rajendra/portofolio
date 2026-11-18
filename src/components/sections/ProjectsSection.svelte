@@ -1,33 +1,39 @@
-<script>
+<script lang="ts">
   import { PROJECTS } from '../../lib/portfolioData.js';
+  import type { Project } from '../../lib/types.js';
 
-  const publishedProjects = PROJECTS.filter((p) => p.published !== false);
+  const publishedProjects: Project[] = PROJECTS.filter((p) => p.published !== false);
 
-  let viewState = $state({ type: 'list', projectId: null, index: 0 });
+  type ViewState =
+    | { type: 'list'; projectId: null; index: number }
+    | { type: 'detail'; projectId: string; index: number }
+    | { type: 'image'; projectId: string; index: number };
 
-  function openDetail(id) {
+  let viewState = $state<ViewState>({ type: 'list', projectId: null, index: 0 });
+
+  function openDetail(id: string): void {
     viewState = { type: 'detail', projectId: id, index: 0 };
     document.querySelector('.panel-main')?.scrollTo(0, 0);
   }
 
-  function openImage(id, idx) {
+  function openImage(id: string, idx: number): void {
     viewState = { type: 'image', projectId: id, index: idx };
     document.querySelector('.panel-main')?.scrollTo(0, 0);
   }
 
-  function backToDetail(id) {
+  function backToDetail(id: string): void {
     viewState = { type: 'detail', projectId: id, index: 0 };
     document.querySelector('.panel-main')?.scrollTo(0, 0);
   }
 
-  function backToList() {
+  function backToList(): void {
     viewState = { type: 'list', projectId: null, index: 0 };
     document.querySelector('.panel-main')?.scrollTo(0, 0);
   }
 
   let project = $derived(
     viewState.projectId
-      ? PROJECTS.find((p) => p.id === viewState.projectId)
+      ? PROJECTS.find((p) => p.id === viewState.projectId) ?? null
       : null
   );
 

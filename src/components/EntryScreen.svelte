@@ -1,10 +1,14 @@
-<script>
-  let { onEnter } = $props();
+<script lang="ts">
+  interface Props {
+    onEnter: () => void;
+  }
+
+  let { onEnter }: Props = $props();
 
   let logoError = $state(false);
   let buttonError = $state(false);
 
-  function handleKeydown(e) {
+  function handleKeydown(e: KeyboardEvent): void {
     if (e.key === 'Enter' && !e.repeat && !e.ctrlKey && !e.metaKey && !e.altKey) {
       e.preventDefault();
       onEnter();
