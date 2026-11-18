@@ -80,13 +80,13 @@ export const ABOUT_ME: AboutMe = {
       institution: "SMKN 8 Semarang",
       status: "Active Student · Class of 2026/2027",
       details:
-        "Ketua & Full Stack Developer di Snapandev SMKN 8 Semarang. Focus on modern full-stack engineering, scalable APIs, and interactive web systems.",
+        "Ketua & Full Stack Developer di Ekstrakurikuler Snapandev SMKN 8 Semarang. Mengembangkan software engineering tingkat lanjut, arsitektur aplikasi web modern, dan sistem berskala besar.",
     },
     {
       year: "GRADUATED 2024",
       degree: "Junior High School Diploma",
       institution: "SMPN 20 Semarang",
-      status: "Consistently Top 3 Academic Student (Selalu Top 3)",
+      status: "Alumni · Class of 2024",
       details:
         "Ketua Seksi Kewirausahaan OSIS & Anggota Paskibra. Actively led student business initiatives and ceremonial flag-raising leadership.",
     },
@@ -96,17 +96,17 @@ export const ABOUT_ME: AboutMe = {
 export const EXPERIENCES: Experience[] = [
   {
     id: "snapandev-lead",
-    company: "Snapandev — SMKN 8 Semarang",
-    role: "Ketua & Full Stack Developer",
+    company: "Snapandev — Ekstrakurikuler Software Engineering SMKN 8 Semarang",
+    role: "Ketua & Lead Full Stack Developer",
     period: "2026 – Present",
-    placement: "SMKN 8 Semarang · Software Engineering Team",
+    placement: "SMKN 8 Semarang · Ekstrakurikuler Rekayasa Perangkat Lunak Lanjutan",
     summary:
-      "Memimpin divisi development Snapandev dan merancang arsitektur aplikasi web full-stack modern untuk proyek inovasi sekolah dan klien.",
+      "Memimpin ekstrakurikuler Snapandev sebagai wadah software engineering tingkat lanjut, merancang arsitektur aplikasi full-stack modern, dan mengarahkan pengembangan proyek inovasi berstandar industri.",
     highlights: [
-      "Menjabat sebagai Ketua tim pengembang Snapandev, mengarahkan roadmap teknologi dan standar koding tim.",
-      "Mengembangkan aplikasi web responsif menggunakan SvelteKit, React, Next.js, Node.js, dan Supabase.",
+      "Menjabat sebagai Ketua Ekstrakurikuler Snapandev, memimpin tim developer tingkat lanjut dan menetapkan standar arsitektur teknologi berstandar industri.",
+      "Mengembangkan aplikasi web responsif performa tinggi menggunakan SvelteKit, React, Next.js, Node.js, dan Supabase.",
       "Merancang skema database relasional (PostgreSQL & MySQL/MariaDB) dan integrasi REST API yang aman.",
-      "Menerapkan UI/UX yang modern dan intuitif dengan Tailwind CSS dan Material UI.",
+      "Menerapkan UI/UX yang modern, interaktif, dan intuitif dengan Tailwind CSS dan Material UI.",
     ],
     stack: [
       "Svelte / SvelteKit",

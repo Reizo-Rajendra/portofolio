@@ -5,8 +5,8 @@
 // - Footstep dust puffs
 // - Click-to-move target ring marker
 
-const FIREFLY_COUNT = 5;
-const LEAF_COUNT = 4;
+const FIREFLY_COUNT = 16;
+const LEAF_COUNT = 12;
 
 export class AmbientSystem {
   constructor() {
@@ -164,20 +164,22 @@ export class AmbientSystem {
 
   // Draw ground-level effects (dust, pond sparkles, target marker)
   drawGround(ctx) {
-    // 1. Draw footstep dust (fast batched pixel squares)
-    if (this.dust.length > 0) {
+    // 1. Draw footstep dust
+    for (const d of this.dust) {
+      ctx.save();
+      ctx.globalAlpha = d.alpha;
       ctx.fillStyle = '#bfa576';
-      for (const d of this.dust) {
-        ctx.globalAlpha = d.alpha;
-        ctx.fillRect(Math.round(d.x), Math.round(d.y), d.size, d.size);
-      }
-      ctx.globalAlpha = 1;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
     }
 
     // 2. Draw pond water sparkles
     for (const s of this.sparkles) {
       const progress = s.life / s.maxLife;
       const alpha = Math.sin(progress * Math.PI) * 0.75;
+      ctx.save();
       ctx.globalAlpha = alpha;
       ctx.fillStyle = '#ffffff';
 
@@ -189,8 +191,8 @@ export class AmbientSystem {
       ctx.fillRect(px + 3, py, 1, 1);
       ctx.fillRect(px, py - 2, 1, 1);
       ctx.fillRect(px, py + 3, 1, 1);
+      ctx.restore();
     }
-    ctx.globalAlpha = 1;
 
     // 3. Draw click target marker (RPG style pulsing ring)
     if (this.targetMarker) {
@@ -216,30 +218,34 @@ export class AmbientSystem {
   // Draw air-level effects (fireflies, leaves)
   drawAir(ctx, isNight) {
     if (isNight) {
-      // Draw fireflies (fast pixel glow, zero arcs)
+      // Draw fireflies with soft luminescence & bright core
       for (const f of this.fireflies) {
         const pulse = 0.4 + Math.sin(f.phase * 3) * 0.45;
         if (pulse <= 0.05) continue;
 
+        ctx.save();
         ctx.globalAlpha = pulse;
 
-        const px = Math.round(f.x);
-        const py = Math.round(f.y);
-
-        // Outer soft glow (square pixel)
+        // Outer soft glow
         ctx.fillStyle = f.color;
-        ctx.fillRect(px - 2, py - 2, 4, 4);
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, 4, 0, Math.PI * 2);
+        ctx.fill();
 
         // Bright pixel core
         ctx.fillStyle = '#ffffff';
-        ctx.fillRect(px - 1, py - 1, 2, 2);
+        ctx.fillRect(Math.round(f.x) - 1, Math.round(f.y) - 1, 2, 2);
+        ctx.restore();
       }
-      ctx.globalAlpha = 1;
     } else {
-      // Draw drifting leaves (clean pixel rectangles, zero matrix rotation)
+      // Draw drifting leaves with gentle rotation
       for (const l of this.leaves) {
+        ctx.save();
         ctx.fillStyle = l.color;
-        ctx.fillRect(Math.round(l.x), Math.round(l.y), l.size, l.size * 1.4);
+        ctx.translate(l.x, l.y);
+        ctx.rotate(Math.sin(l.sway) * 0.5);
+        ctx.fillRect(-l.size / 2, -l.size / 2, l.size, l.size * 1.5);
+        ctx.restore();
       }
     }
   }
