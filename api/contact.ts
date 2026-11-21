@@ -42,6 +42,14 @@ export default async function handler(req: any, res: any) {
     }
 
     const apiKey = getResendApiKey();
+    if (!apiKey) {
+      console.log('[Dev Resend Mock] Message received:', { name, email, message });
+      return res.status(200).json({
+        ok: true,
+        message: 'Surat simulasi berhasil dicatat (Set RESEND_API_KEY di .env atau dashboard hosting untuk pengiriman email nyata).',
+      });
+    }
+
     const resend = new Resend(apiKey);
 
     const result = await resend.emails.send({
